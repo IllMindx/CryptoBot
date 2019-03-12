@@ -1,18 +1,17 @@
 package model;
 
 public class CoinModel {
-    private String name, symbol;
-    private int circulatingSupply, rank, price, percentChange1h, percentChange24h, percentChange7d, maxSupply;
+    private String name, symbol, circulatingSupply, rank, price, percentChange1h, percentChange24h, percentChange7d, maxSupply;
 
-    public CoinModel(String name, String symbol, int rank, int price){
+    public CoinModel(String name, String symbol, String rank, String price){
         this.name = name;
         this.symbol = symbol;
         this.rank = rank;
         this.price = price;
     }
 
-    public CoinModel(String name, String symbol, int rank, int price,
-                     int circulatingSupply, int maxSupply, int percentChange1h, int percentChange24h, int percentChange7d ){
+    public CoinModel(String name, String symbol, String rank, String price,
+                     String circulatingSupply, String maxSupply, String percentChange1h, String percentChange24h, String percentChange7d ){
 
         this.name = name;
         this.symbol = symbol;
@@ -41,59 +40,59 @@ public class CoinModel {
         this.symbol = symbol;
     }
 
-    public int getCirculatingSupply() {
+    public String getCirculatingSupply() {
         return circulatingSupply;
     }
 
-    public void setCirculatingSupply(int circulatingSupply) {
+    public void setCirculatingSupply(String circulatingSupply) {
         this.circulatingSupply = circulatingSupply;
     }
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public int getPercentChange1h() {
+    public String getPercentChange1h() {
         return percentChange1h;
     }
 
-    public void setPercentChange1h(int percentChange1h) {
+    public void setPercentChange1h(String percentChange1h) {
         this.percentChange1h = percentChange1h;
     }
 
-    public int getPercentChange24h() {
+    public String getPercentChange24h() {
         return percentChange24h;
     }
 
-    public void setPercentChange24h(int percentChange24h) {
+    public void setPercentChange24h(String percentChange24h) {
         this.percentChange24h = percentChange24h;
     }
 
-    public int getPercentChange7d() {
+    public String getPercentChange7d() {
         return percentChange7d;
     }
 
-    public void setPercentChange7d(int percentChange7d) {
+    public void setPercentChange7d(String percentChange7d) {
         this.percentChange7d = percentChange7d;
     }
 
-    public int getMaxSupply() {
+    public String getMaxSupply() {
         return maxSupply;
     }
 
-    public void setMaxSupply(int maxSupply) {
+    public void setMaxSupply(String maxSupply) {
         this.maxSupply = maxSupply;
     }
 }

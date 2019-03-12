@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import model.CoinModel;
 import org.apache.http.HttpEntity;
@@ -31,22 +31,19 @@ public class API {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info";
     }
 
-    public static void getLastest(String name) {
+    public static String getLastest(String name) {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
         CoinModel coin = null;
 
         try {
-            /*
-                CONTINUAR DAQUI PEGANDO DADOS DO QUOTES
-            */
+
             JSONArray result = makeAPICall(uri).getJSONArray("data");
-            //System.out.println(result.getJSONObject(0).get("name"));
             for (int i= 0; i <= result.length(); i++){
                 if (result.getJSONObject(i).get("name").equals(name)) {
                     coin = new CoinModel(result.getJSONObject(i).get("name").toString(),
                             result.getJSONObject(i).get("symbol").toString(),
-                            Integer.parseInt(result.getJSONObject(i).get("cmc_rank").toString()),
-                            Integer.parseInt(result.getJSONObject(i).get("").toString()));
+                            result.getJSONObject(i).get("cmc_rank").toString(),
+                            result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString());
                     break;
                 }
                 else
@@ -58,10 +55,7 @@ public class API {
             System.out.println("Error: Invalid URL " + e.toString());
         }
 
-        System.out.println("Name: " +coin.getName());
-        System.out.println("Symbol: "+coin.getSymbol());
-        System.out.println("Rank: "+coin.getRank());
-        System.out.println("Price: "+coin.getPrice());
+        return coin.getName()+", "+coin.getSymbol()+", "+coin.getRank()+", "+coin.getPrice();
     }
 
     public static JSONObject makeAPICall(String uri)

@@ -1,6 +1,5 @@
 package view;
 
-import net.dv8tion.jda.client.events.call.voice.CallVoiceJoinEvent;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -25,7 +24,10 @@ public class View extends ListenerAdapter {
         if (message.equals("!start")) {
             event.getChannel().sendMessage("Hello, I am CryptoBot.").queue();
             event.getChannel().sendMessage("How can I help you?").queue();
+            event.getChannel().sendMessage("!getLastest: Get a paginated list of all cryptocurrencies with latest market data.").queue();
+
         }
+
     }
 
 }
