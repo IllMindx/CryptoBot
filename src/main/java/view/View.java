@@ -28,6 +28,9 @@ public class View extends ListenerAdapter {
 
         String message = event.getMessage().getContentRaw();
 
+        if(event.getAuthor().isBot())
+            return;
+        
         if (message.startsWith("!start")) {
             event.getChannel().sendMessage("Hello, I am CryptoBot.").queue();
             event.getChannel().sendMessage("How can I help you?").queue();
