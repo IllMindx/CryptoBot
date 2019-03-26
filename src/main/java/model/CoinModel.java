@@ -1,7 +1,17 @@
 package model;
 
-public class CoinModel {
+import view.Observer;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class CoinModel implements Subject {
+
     private String name, symbol, circulatingSupply, rank, price, percentChange1h, percentChange24h, percentChange7d, maxSupply;
+    private List<Observer> observers = new LinkedList<Observer>();
+    private static CoinModel coin = null;
+    private static API api =  new API();
+
 
     public CoinModel(String name, String symbol, String rank, String price){
         this.name = name;
@@ -11,7 +21,7 @@ public class CoinModel {
     }
 
     public CoinModel(String name, String symbol, String rank, String price,
-                     String circulatingSupply, String maxSupply, String percentChange1h, String percentChange24h, String percentChange7d ){
+                     String circulatingSupply, String maxSupply, String percentChange1h, String percentChange24h, String percentChange7d){
 
         this.name = name;
         this.symbol = symbol;
@@ -94,5 +104,29 @@ public class CoinModel {
 
     public void setMaxSupply(String maxSupply) {
         this.maxSupply = maxSupply;
+    }
+
+    @Override
+    public void registerObserver (Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObserver (CoinModel coin) {
+        for (Observer observer : observers)
+            observer.update(coin);
+    }
+
+    public static void searchBasic (String name){
+
+        coin = api.getBasic(name);
+
+        coin.notifyObserver(coin);
+    }
+
+    public static void searchComplete (String name){
+        coin = api.getComplete(name);
+
+        coin.notifyObserver(coin);
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class API {
 
-    private static String apiKey = "25174033-cf8f-4a70-827d-6d132857e426";
+    private final static String apiKey = "25174033-cf8f-4a70-827d-6d132857e426";
 
     public CoinModel getComplete(String name) {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";

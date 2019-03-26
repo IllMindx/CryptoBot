@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
 
-public class View extends ListenerAdapter {
+public class View extends ListenerAdapter implements Observer {
     private ControllerSearchBasic basic = new ControllerSearchBasic();
     private ControllerSearchComplete complete = new ControllerSearchComplete();
     private CoinModel coin;
@@ -37,21 +37,21 @@ public class View extends ListenerAdapter {
             event.getChannel().sendMessage("Basic + Coin: Get name, symbol, rank and current price of the coin.").queue();
             event.getChannel().sendMessage("Complete + Coin: Get name, symbol, circulatingSupply, rank," +
                     " price, percentChange1h, percentChange24h, percentChange7d, maxSupply").queue();
-
         }
         else if (message.split(" ")[0].toLowerCase().equals("basic")){
 
-            coin = basic.search(message.split(" ")[1]);
+            basic.search(message.split(" ")[1]);
 
-            event.getChannel().sendMessage("Name: "+ coin.getName()+" - "+coin.getSymbol()).queue();
+
+            event.getChannel().sendMessage("Name: "+ coin.getName()+" - "+ coin.getSymbol()).queue();
             event.getChannel().sendMessage("Rank: "+ coin.getRank()).queue();
             event.getChannel().sendMessage("Price: "+ coin.getPrice()).queue();
 
-            event.getJDA().removeEventListener(this);
         }
         else if (message.split(" ")[0].toLowerCase().equals("complete")){
 
-            coin = complete.search(message.split(" ")[1]);
+            complete.search(message.split(" ")[1]);
+
 
             event.getChannel().sendMessage("Name: "+ coin.getName()+" - "+coin.getSymbol()).queue();
             event.getChannel().sendMessage("Rank: "+ coin.getRank()).queue();
@@ -65,4 +65,8 @@ public class View extends ListenerAdapter {
         }
     }
 
+    @Override
+    public void update(CoinModel coin) {
+        this.coin = coin;
+    }
 }
