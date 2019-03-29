@@ -1,10 +1,10 @@
 package controller;
 
-import model.CoinModel;
+import model.Model;
 
 public class ControllerSearchComplete implements ControllerSearch{
     @Override
     public void search(String name) {
-        CoinModel.searchComplete(name);
+        Model.searchComplete(name);
     }
 }

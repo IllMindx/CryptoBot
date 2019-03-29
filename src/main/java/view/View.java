@@ -3,6 +3,7 @@ package view;
 import controller.ControllerSearchBasic;
 import controller.ControllerSearchComplete;
 import model.CoinModel;
+import model.Model;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -16,6 +17,10 @@ public class View extends ListenerAdapter implements Observer {
     private CoinModel coin;
 
     public static void main(String[] args) throws LoginException {
+        Model model = new Model();
+        View view = new View();
+        model.registerObserver(view);
+
         JDABuilder builder = new JDABuilder(AccountType.BOT);
         final String token = "NTQ3MDQyNjYxOTMzMjUyNjU3.D0183Q.y3HEU65PCiy9b-EHC-QORCdXJ00";
         builder.setToken(token);
@@ -65,8 +70,10 @@ public class View extends ListenerAdapter implements Observer {
         }
     }
 
+
     @Override
     public void update(CoinModel coin) {
         this.coin = coin;
     }
+
 }
