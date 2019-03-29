@@ -1,38 +1,33 @@
 package model;
 
-import model.CoinModel;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class API {
 
     private final static String apiKey = "25174033-cf8f-4a70-827d-6d132857e426";
 
-    public CoinModel getComplete(String name) {
+    public Coin getComplete(String name) {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-        CoinModel coin = null;
+        Coin coin = null;
 
         try {
 
             JSONArray result = makeAPICall(uri).getJSONArray("data");
             for (int i= 0; i <= result.length(); i++){
                 if (result.getJSONObject(i).get("name").toString().toLowerCase().equals(name.toLowerCase())) {
-                    coin = new CoinModel(result.getJSONObject(i).get("name").toString(),
+                    coin = new Coin(result.getJSONObject(i).get("name").toString(),
                             result.getJSONObject(i).get("symbol").toString(),
                             result.getJSONObject(i).get("cmc_rank").toString(),
                             result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString(),
@@ -54,16 +49,16 @@ public class API {
         return coin;
     }
 
-    public CoinModel getBasic(String name) {
+    public Coin getBasic(String name) {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-        CoinModel coin = null;
+        Coin coin = null;
 
         try {
 
             JSONArray result = makeAPICall(uri).getJSONArray("data");
             for (int i= 0; i <= result.length(); i++){
                 if (result.getJSONObject(i).get("name").toString().toLowerCase().equals(name.toLowerCase())) {
-                    coin = new CoinModel(result.getJSONObject(i).get("name").toString(),
+                    coin = new Coin(result.getJSONObject(i).get("name").toString(),
                             result.getJSONObject(i).get("symbol").toString(),
                             result.getJSONObject(i).get("cmc_rank").toString(),
                             result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString());

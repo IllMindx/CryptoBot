@@ -2,7 +2,7 @@ package view;
 
 import controller.ControllerSearchBasic;
 import controller.ControllerSearchComplete;
-import model.CoinModel;
+import model.Coin;
 import model.Model;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDABuilder;
@@ -14,7 +14,7 @@ import javax.security.auth.login.LoginException;
 public class View extends ListenerAdapter implements Observer {
     private ControllerSearchBasic basic;
     private ControllerSearchComplete complete;
-    private CoinModel coin;
+    private Coin coin;
     private Model model;
 
     public View(Model model) throws LoginException {
@@ -72,7 +72,7 @@ public class View extends ListenerAdapter implements Observer {
 
 
     @Override
-    public void update(CoinModel coin) {
+    public void update(Coin coin) {
         this.coin = coin;
     }
 

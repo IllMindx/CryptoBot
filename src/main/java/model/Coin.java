@@ -1,18 +1,18 @@
 package model;
 
-public class CoinModel {
+public class Coin {
     private String name, symbol, circulatingSupply, rank, price, percentChange1h, percentChange24h, percentChange7d, maxSupply;
 
 
-    public CoinModel(String name, String symbol, String rank, String price){
+    public Coin(String name, String symbol, String rank, String price){
         this.name = name;
         this.symbol = symbol;
         this.rank = rank;
         this.price = price;
     }
 
-    public CoinModel(String name, String symbol, String rank, String price,
-                     String circulatingSupply, String maxSupply, String percentChange1h, String percentChange24h, String percentChange7d){
+    public Coin(String name, String symbol, String rank, String price,
+                String circulatingSupply, String maxSupply, String percentChange1h, String percentChange24h, String percentChange7d){
 
         this.name = name;
         this.symbol = symbol;

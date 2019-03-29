@@ -4,7 +4,7 @@ import view.Observer;
 
 public class Model implements Subject {
     private Observer observer;
-    private static CoinModel coin = null;
+    private static Coin coin = null;
     private API api =  new API();
 
     private static Model instance;
@@ -24,7 +24,7 @@ public class Model implements Subject {
     }
 
     @Override
-    public void notifyObserver (CoinModel coin) {
+    public void notifyObserver (Coin coin) {
         observer.update(coin);
     }
 

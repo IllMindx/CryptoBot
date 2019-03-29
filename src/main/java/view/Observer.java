@@ -1,7 +1,7 @@
 package view;
 
-import model.CoinModel;
+import model.Coin;
 
 public interface Observer {
-    void update(CoinModel coin);
+    void update(Coin coin);
 }
