@@ -2,19 +2,24 @@ package model;
 
 import view.Observer;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Model implements Subject {
     private Observer observer;
     private static CoinModel coin = null;
-    private static API api =  new API();
-    private static Model model = new Model();
+    private API api =  new API();
 
+    private static Model instance;
+
+    private Model(){}
+
+    public static Model getInstance() {
+        if(instance == null){
+            instance = new Model();
+        }
+        return instance;
+    }
 
     @Override
     public void registerObserver (Observer observer) {
-        System.err.println("registerObserver: "+observer);
         this.observer = observer;
     }
 
@@ -23,16 +28,16 @@ public class Model implements Subject {
         observer.update(coin);
     }
 
-    public static void searchBasic (String name){
+    public void searchBasic (String name){
 
         coin = api.getBasic(name);
 
-        model.notifyObserver(coin);
+        this.notifyObserver(coin);
     }
 
-    public static void searchComplete (String name){
+    public void searchComplete (String name){
         coin = api.getComplete(name);
 
-        model.notifyObserver(coin);
+        this.notifyObserver(coin);
     }
 }
