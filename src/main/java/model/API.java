@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class API {
-
     private final static String apiKey = "25174033-cf8f-4a70-827d-6d132857e426";
 
     public Coin getComplete(String name) {
@@ -23,7 +22,6 @@ public class API {
         Coin coin = null;
 
         try {
-
             JSONArray result = makeAPICall(uri).getJSONArray("data");
             for (int i= 0; i <= result.length(); i++){
                 if (result.getJSONObject(i).get("name").toString().toLowerCase().equals(name.toLowerCase())) {
@@ -36,9 +34,8 @@ public class API {
                             result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_1h").toString(),
                             result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_24h").toString(),
                             result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_7d").toString());
-                }
-                else
                     break;
+                }
             }
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());
@@ -54,7 +51,6 @@ public class API {
         Coin coin = null;
 
         try {
-
             JSONArray result = makeAPICall(uri).getJSONArray("data");
             for (int i= 0; i <= result.length(); i++){
                 if (result.getJSONObject(i).get("name").toString().toLowerCase().equals(name.toLowerCase())) {
@@ -62,9 +58,8 @@ public class API {
                             result.getJSONObject(i).get("symbol").toString(),
                             result.getJSONObject(i).get("cmc_rank").toString(),
                             result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString());
-                }
-                else
                     break;
+                }
             }
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());

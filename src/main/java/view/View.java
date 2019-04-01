@@ -49,9 +49,10 @@ public class View extends ListenerAdapter implements Observer {
 
             event.getChannel().sendMessage("Name: "+ coin.getName()+" - "+ coin.getSymbol()+
                     "\nRank: "+ coin.getRank()+
-                    "\nPrice: "+ coin.getPrice()).queue();
+                    "\nPrice: $"+ coin.getPrice()).queue();
 
         }
+
         else if (message.split(" ")[0].toLowerCase().equals("complete")){
 
             complete = new ControllerSearchComplete(model, this);
@@ -60,7 +61,7 @@ public class View extends ListenerAdapter implements Observer {
 
             event.getChannel().sendMessage("Name: "+ coin.getName()+" - "+coin.getSymbol()+
                     "\nRank: "+ coin.getRank()+
-                    "\nPrice: "+ coin.getPrice()+
+                    "\nPrice: $"+ coin.getPrice()+
                     "\nCirculating Supply: "+ coin.getCirculatingSupply()+
                     "\nMax Supply: "+ coin.getMaxSupply()+
                     "\nPercent Change 1h: "+ coin.getPercentChange1h()+
