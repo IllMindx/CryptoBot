@@ -33,8 +33,8 @@ public class View extends ListenerAdapter implements Observer {
         String message = event.getMessage().getContentRaw();
 
         if(event.getAuthor().isBot())
-            return;
 
+        return;
         if (message.startsWith("!start")) {
             event.getChannel().sendMessage("Hello, I am CryptoBot.\n" +
                     "How can I help you?\n\n" +
@@ -64,9 +64,9 @@ public class View extends ListenerAdapter implements Observer {
                     "\nPrice: $"+ coin.getPrice()+
                     "\nCirculating Supply: "+ coin.getCirculatingSupply()+
                     "\nMax Supply: "+ coin.getMaxSupply()+
-                    "\nPercent Change 1h: "+ coin.getPercentChange1h()+
-                    "\nPercent Change 24h: "+ coin.getPercentChange24h()+
-                    "\nPercent Change 7d: "+ coin.getPercentChange7d()).queue();
+                    "\nPercent Change 1h: "+ coin.getPercentChange1h()+"%"+
+                    "\nPercent Change 24h: "+ coin.getPercentChange24h()+"%"+
+                    "\nPercent Change 7d: "+ coin.getPercentChange7d()+"%").queue();
 
         }
     }
