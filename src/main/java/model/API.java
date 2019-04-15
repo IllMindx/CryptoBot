@@ -1,5 +1,7 @@
 package model;
 
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,57 +19,51 @@ import java.net.URISyntaxException;
 public class API {
     private final static String apiKey = "25174033-cf8f-4a70-827d-6d132857e426";
 
-    public Coin getComplete(String name) {
+    public void getComplete() {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
         Coin coin = null;
 
         try {
             JSONArray result = makeAPICall(uri).getJSONArray("data");
-            for (int i= 0; i <= result.length(); i++){
-                if (result.getJSONObject(i).get("name").toString().toLowerCase().equals(name.toLowerCase())) {
-                    coin = new Coin(result.getJSONObject(i).get("name").toString(),
-                            result.getJSONObject(i).get("symbol").toString(),
-                            result.getJSONObject(i).get("cmc_rank").toString(),
-                            result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString(),
-                            result.getJSONObject(i).get("circulating_supply").toString(),
-                            result.getJSONObject(i).get("max_supply").toString(),
-                            result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_1h").toString(),
-                            result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_24h").toString(),
-                            result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_7d").toString());
-                    break;
-                }
+            for (int i= 0; i < result.length(); i++){
+                coin = new Coin(result.getJSONObject(i).get("name").toString(),
+                        result.getJSONObject(i).get("symbol").toString(),
+                        result.getJSONObject(i).get("cmc_rank").toString(),
+                        result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString(),
+                        result.getJSONObject(i).get("circulating_supply").toString(),
+                        result.getJSONObject(i).get("max_supply").toString(),
+                        result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_1h").toString(),
+                        result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_24h").toString(),
+                        result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("percent_change_7d").toString());
+
+                Model.completeCoins.store(coin);
             }
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());
         } catch (URISyntaxException e) {
             System.out.println("Error: Invalid URL " + e.toString());
         }
-
-        return coin;
     }
 
-    public Coin getBasic(String name) {
+    public void getBasic() {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
         Coin coin = null;
 
         try {
             JSONArray result = makeAPICall(uri).getJSONArray("data");
-            for (int i= 0; i <= result.length(); i++){
-                if (result.getJSONObject(i).get("name").toString().toLowerCase().equals(name.toLowerCase())) {
-                    coin = new Coin(result.getJSONObject(i).get("name").toString(),
-                            result.getJSONObject(i).get("symbol").toString(),
-                            result.getJSONObject(i).get("cmc_rank").toString(),
-                            result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString());
-                    break;
-                }
+            for (int i= 0; i < result.length(); i++){
+                coin = new Coin(result.getJSONObject(i).get("name").toString(),
+                        result.getJSONObject(i).get("symbol").toString(),
+                        result.getJSONObject(i).get("cmc_rank").toString(),
+                        result.getJSONObject(i).getJSONObject("quote").getJSONObject("USD").get("price").toString());
+
+                Model.basicCoins.store(coin);
             }
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());
         } catch (URISyntaxException e) {
             System.out.println("Error: Invalid URL " + e.toString());
         }
-
-        return coin;
     }
 
     public static JSONObject makeAPICall(String uri)
