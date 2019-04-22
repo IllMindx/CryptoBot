@@ -1,5 +1,6 @@
 package view;
 
+import controller.ControllerSeachInfo;
 import controller.ControllerSearchBasic;
 import controller.ControllerSearchComplete;
 import model.Coin;
@@ -14,6 +15,7 @@ import javax.security.auth.login.LoginException;
 public class View extends ListenerAdapter implements Observer {
     private ControllerSearchBasic basic;
     private ControllerSearchComplete complete;
+    private ControllerSeachInfo info;
     private Coin coin;
     private Model model;
 
@@ -40,9 +42,10 @@ public class View extends ListenerAdapter implements Observer {
                     "How can I help you?\n\n" +
                     "Basic + Coin: Get name, symbol, rank and current price of the coin.\n" +
                     "Complete + Coin: Get name, symbol, circulatingSupply, rank," +
-                    "price, percentChange1h, percentChange24h, percentChange7d, maxSupply").queue();
+                    "price, percentChange1h, percentChange24h, percentChange7d, maxSupply" +
+                    "Info + Coin: Get name, symbol, category, logo, tags, description").queue();
         }
-        else if (message.split(" ")[0].toLowerCase().equals("basic")){
+        else if (message.split(" ")[0].toLowerCase().equals("basic")) {
 
             basic = new ControllerSearchBasic(model, this);
             basic.search(message.split(" ")[1]);
@@ -53,7 +56,7 @@ public class View extends ListenerAdapter implements Observer {
 
         }
 
-        else if (message.split(" ")[0].toLowerCase().equals("complete")){
+        else if (message.split(" ")[0].toLowerCase().equals("complete")) {
 
             complete = new ControllerSearchComplete(model, this);
             complete.search(message.split(" ")[1]);
@@ -68,6 +71,18 @@ public class View extends ListenerAdapter implements Observer {
                     "\nPercent Change 24h: "+ coin.getPercentChange24h()+"%"+
                     "\nPercent Change 7d: "+ coin.getPercentChange7d()+"%").queue();
 
+        }
+
+        else if (message.split(" ")[0].toLowerCase().equals("info")) {
+
+            info = new ControllerSeachInfo(model, this);
+            info.search(message.split(" ")[1]);
+
+                E
+                    R
+                        R
+                            O
+                                R
         }
     }
 

@@ -9,9 +9,11 @@ import view.Observer;
 public class Model implements Subject {
     private Observer observer;
     private Coin coin = null;
+    private Info info = null;
     private API api =  new API();
     static ObjectContainer basicCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/basicCoins.db4o");
     static ObjectContainer completeCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/completeCoins.db4o");
+    static ObjectContainer infoCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/info.db4o");
 
     private static Model instance;
 
@@ -50,28 +52,40 @@ public class Model implements Subject {
         this.notifyObserver(coin);
     }
 
+    public void searchInfo (String name) {
+        findInfo(name);
+    }
+
     private Coin findCoin (String name, int kind) {
-        Query basicQuery = basicCoins.query();
-        basicQuery.constrain(Coin.class);
-        ObjectSet<Coin> allBasicCoin = basicQuery.execute();
-
-        Query completeQuery = completeCoins.query();
-        completeQuery.constrain(Coin.class);
-        ObjectSet<Coin> allCompleteCoin = completeQuery.execute();
-
-        
         if (kind == 1){
+            Query basicQuery = basicCoins.query();
+            basicQuery.constrain(Coin.class);
+            ObjectSet<Coin> allBasicCoin = basicQuery.execute();
             for (Coin coin : allBasicCoin){
                 if (coin.getName().toLowerCase().equals(name.toLowerCase()))
                     return  coin;
             }
         }
         else {
+            Query completeQuery = completeCoins.query();
+            completeQuery.constrain(Coin.class);
+            ObjectSet<Coin> allCompleteCoin = completeQuery.execute();
             for (Coin coin : allCompleteCoin){
                 if (coin.getName().toLowerCase().equals(name.toLowerCase()))
                     return  coin;
             }
         }
         return new Coin("Not found", "0", "0", "0");
+    }
+
+    private static Info findInfo(String name) {
+        Query infoQuery = infoCoins.query();
+        infoQuery.constrain(Info.class);
+        ObjectSet<Info> allInfo = infoQuery.execute();
+        for (Info info : allInfo){
+            if(info.getName().toLowerCase().equals(name.toLowerCase()))
+                return info;
+        }
+        return new Info("Not found", "0", "0", "0", "0", "0");
     }
 }
