@@ -70,31 +70,26 @@ public class API {
         }
     }
 
-    public void getInfo() {
+    public Info getInfo(String name) {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info";
         List<NameValuePair> paratmers = new ArrayList<NameValuePair>();
+        paratmers.add(new BasicNameValuePair("symbol", name.toUpperCase()));
         Info info = null;
 
         try {
-            for (int i=1; i<=100; i++) {
-                paratmers.add(new BasicNameValuePair("id",Integer.toString(i)));
-                JSONObject result = makeAPICall(uri, paratmers).getJSONObject("data").getJSONObject(Integer.toString(i));
-
-                info = new Info(result.get("name").toString(),
-                        result.get("symbol").toString(),
-                        result.get("category").toString(),
-                        result.get("logo").toString(),
-                        result.get("tags").toString(),
-                        result.get("description").toString());
-
-                Model.infoCoins.store(info);
-                paratmers.clear();
-            }
+            JSONObject result = makeAPICall(uri, paratmers).getJSONObject("data").getJSONObject(name.toUpperCase());
+            info = new Info(result.get("name").toString(),
+                    result.get("symbol").toString(),
+                    result.get("category").toString(),
+                    result.get("logo").toString(),
+                    result.get("tags").toString(),
+                    result.get("description").toString());
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());
         } catch (URISyntaxException e) {
             System.out.println("Error: Invalid URL " + e.toString());
         }
+        return info;
     }
 
     public static JSONObject makeAPICall(String uri)

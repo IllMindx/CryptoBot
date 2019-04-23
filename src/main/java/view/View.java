@@ -4,6 +4,7 @@ import controller.ControllerSeachInfo;
 import controller.ControllerSearchBasic;
 import controller.ControllerSearchComplete;
 import model.Coin;
+import model.Info;
 import model.Model;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDABuilder;
@@ -15,8 +16,9 @@ import javax.security.auth.login.LoginException;
 public class View extends ListenerAdapter implements Observer {
     private ControllerSearchBasic basic;
     private ControllerSearchComplete complete;
-    private ControllerSeachInfo info;
+    private ControllerSeachInfo infoSearch;
     private Coin coin;
+    private Info info;
     private Model model;
 
     public View(Model model) throws LoginException {
@@ -42,8 +44,8 @@ public class View extends ListenerAdapter implements Observer {
                     "How can I help you?\n\n" +
                     "Basic + Coin: Get name, symbol, rank and current price of the coin.\n" +
                     "Complete + Coin: Get name, symbol, circulatingSupply, rank," +
-                    "price, percentChange1h, percentChange24h, percentChange7d, maxSupply" +
-                    "Info + Coin: Get name, symbol, category, logo, tags, description").queue();
+                    "price, percentChange1h, percentChange24h, percentChange7d, maxSupply\n" +
+                    "Info + Symbol: Get name, symbol, category, logo, tags, description").queue();
         }
         else if (message.split(" ")[0].toLowerCase().equals("basic")) {
 
@@ -75,14 +77,14 @@ public class View extends ListenerAdapter implements Observer {
 
         else if (message.split(" ")[0].toLowerCase().equals("info")) {
 
-            info = new ControllerSeachInfo(model, this);
-            info.search(message.split(" ")[1]);
+            infoSearch = new ControllerSeachInfo(model, this);
+            infoSearch.search(message.split(" ")[1]);
 
-                E
-                    R
-                        R
-                            O
-                                R
+            event.getChannel().sendMessage("Name: "+ info.getName()+" - "+info.getSymbol()+
+                    "\nCategory: "+ info.getCategory()+
+                    "\nTags: "+ info.getTags()+
+                    "\nDescription:\n"+ info.getDescription()+
+                    "\n\nLogo: "+ info.getLogo()).queue();
         }
     }
 
@@ -90,6 +92,11 @@ public class View extends ListenerAdapter implements Observer {
     @Override
     public void update(Coin coin) {
         this.coin = coin;
+    }
+
+    @Override
+    public void update(Info info) {
+        this.info = info;
     }
 
 }

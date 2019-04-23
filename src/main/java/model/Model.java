@@ -13,7 +13,7 @@ public class Model implements Subject {
     private API api =  new API();
     static ObjectContainer basicCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/basicCoins.db4o");
     static ObjectContainer completeCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/completeCoins.db4o");
-    static ObjectContainer infoCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/info.db4o");
+
 
     private static Model instance;
 
@@ -36,6 +36,11 @@ public class Model implements Subject {
         observer.update(coin);
     }
 
+    @Override
+    public void notifyObserver(Info info) {
+        observer.update(info);
+    }
+
     public void searchBasic (String name){
         api.getBasic();
 
@@ -53,7 +58,9 @@ public class Model implements Subject {
     }
 
     public void searchInfo (String name) {
-        findInfo(name);
+        info = api.getInfo(name);
+
+        this.notifyObserver(info);
     }
 
     private Coin findCoin (String name, int kind) {
@@ -78,14 +85,4 @@ public class Model implements Subject {
         return new Coin("Not found", "0", "0", "0");
     }
 
-    private static Info findInfo(String name) {
-        Query infoQuery = infoCoins.query();
-        infoQuery.constrain(Info.class);
-        ObjectSet<Info> allInfo = infoQuery.execute();
-        for (Info info : allInfo){
-            if(info.getName().toLowerCase().equals(name.toLowerCase()))
-                return info;
-        }
-        return new Info("Not found", "0", "0", "0", "0", "0");
-    }
 }
