@@ -7,4 +7,4 @@ CryptoBot é um Discord chatbot que retorna dados sobre criptomoedas atualizados
 
 ## Diagrama de Classes
 
-![Diagrama](https://user-images.githubusercontent.com/33720962/57227805-aa31d880-6fe8-11e9-9846-89b571808fab.png)
+![Diagrama](https://user-images.githubusercontent.com/33720962/57228194-989d0080-6fe9-11e9-95a5-93d213b87e18.png)
