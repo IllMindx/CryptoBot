@@ -11,8 +11,8 @@ public class Model implements Subject {
     private Coin coin = null;
     private Info info = null;
     private API api =  new API();
-    static ObjectContainer basicCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/basicCoins.db4o");
-    static ObjectContainer completeCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/completeCoins.db4o");
+    public static ObjectContainer basicCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/basicCoins.db4o");
+    public static ObjectContainer completeCoins = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "database/completeCoins.db4o");
 
 
     private static Model instance;

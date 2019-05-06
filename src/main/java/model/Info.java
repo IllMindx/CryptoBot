@@ -6,6 +6,7 @@ public class Info {
     private String category;
     private String logo;
     private String tags;
+    private String description;
 
     public Info(String name, String symbol, String category, String logo, String tags, String description) {
         this.name = name;
@@ -39,6 +40,4 @@ public class Info {
     public String getDescription() {
         return description;
     }
-
-    private String description;
 }
